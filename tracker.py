@@ -6,8 +6,8 @@ class ExpenseTracker:
         self.expenses = []
 
 #Command to add expense
-    def add_Expense(self, description, amount):
-        expense = Expense(description, amount)
+    def add_Expense(self, description, category, date, amount):
+        expense = Expense(description, category, date, amount)
         self.expenses.append(expense)
 
 #Command to view all expenses
@@ -26,9 +26,9 @@ class ExpenseTracker:
     def save_expenses(self, filename):
         with open(filename, 'w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(["Description", "Amount"])
+            writer.writerow(["Description", "Category", "Date", "Amount"])
             for expense in self.expenses:
-                writer.writerow([expense.description, expense.amount])
+                writer.writerow([expense.description, expense.category, expense.date, expense.amount])
 
 #Command to load csv file of expenses into the program, will fail if given invailid name
     def load_Expenses(self, filename):
@@ -36,7 +36,7 @@ class ExpenseTracker:
             with open(filename, 'r') as file:
                 reader = csv.reader(file)
                 next(reader) #skips the header
-                self.expenses = [Expense(description, float(amount)) for description, amount in reader]
+                self.expenses = [Expense(description, float(category), float(date), float(amount)) for description, category, date, amount in reader]
         except FileNotFoundError:
             print(f"The file {filename} does not exist.")
 

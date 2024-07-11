@@ -1,6 +1,8 @@
 #Main code to bring all classes together
 from tracker import ExpenseTracker
 from expense import Expense
+from datetime import date
+
 def main():
     tracker = ExpenseTracker()
     while True:
@@ -18,8 +20,22 @@ def main():
         if choice == '1':
             #make addition
             description = input("Enter the expense description: ")
+            print("1. Housing")
+            print("2. Transportation")
+            print("3. Food")
+            print("4. Utilities")
+            print("5. Medical")
+            print("6. Savings")
+            print("7. Personal Spending")
+            print("8. Misc")
+
+            category = int(input("Enter your category number: "))
+            date = input("Hit enter for current date or enter date of expense(yyyy/mm/dd): ")
+            if date == "":
+                date = date.today()
+            
             amount = float(input("Enter the expense amount: "))
-            tracker.add_Expense(description, amount)
+            tracker.add_Expense(description, category, date, amount)
         elif choice == '2':
             #make deletion
             index = int(input("Enter the expense index to delete: "))
